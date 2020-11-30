@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+<div class="container">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading" th:text="#{welcome.message}"></h4>
+        <p>Differences in implementation of time precision in java and sql databases can lead to not-so-easy-to-find errors.</p>
+        <hr>
+        <p class="mb-0" th:text="'This application is using spring.datasource.url=' + ${springDatasourceUrl}"/>
+    </div>
+
+<!--    <span th:text="#{welcome.message}"/>-->
+
+<!--    <div class="alert alert-primary" role="alert" th:text="'spring.datasource.url=' + ${springDatasourceUrl}">-->
+<!--    </div>-->
+
+    <h3>Events</h3>
+    Table events is populated by file
+    <span class="font-italic">data.sql</span>
+    containing 2 records:
+
+    <table class=" table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Start</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.id}"></td>
+        <td th:text="${event.start}"></td>
+    </tr>
+    </tbody>
+    </table>
+
+    <p>We want to find out the number of events that start up to <span class="badge badge-secondary"
+                                                                       th:text="${testedDay}"/> including that day.
+    </p>
+
+    <p>While invoking
+        <mark>findEventCountIfStartIsLessOrEqualBadVersion</mark>
+        we receive that number of events equals <span class="badge badge-secondary" th:text="${evenCountBadVersion}"/>
+        which is
+        <span th:text="${evenCountBadVersion}==1 ?'correct':'incorrect'"
+              th:class="${evenCountBadVersion} == 1 ? 'text-success' : 'text-danger'"/>.
+
+    </p>
+
+    <p>While invoking
+        <mark>findEventCountIfStartIsLessOrEqual</mark>
+        we receive that number of events equals <span class="badge badge-secondary" th:text="${evenCount}"/>
+        which is
+        <span th:text="${evenCount}==1 ?'correct':'incorrect'"
+              th:class="${evenCount} == 1 ? 'text-success' : 'text-danger'"/>.
+
+    </p>
+</div>
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+</body>
+</html>
